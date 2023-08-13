@@ -34,56 +34,50 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
     let faultyItems = document.getElementById("faultyItems");
     let shuttleReady = true;
 
-    if(validateInput(pilot.value) == "Empty" || validateInput(copilot.value) == "Empty" || validateInput(fuelLevel.value) == "Empty" || validateInput(cargoLevel.value) == "Empty"){
-        alert("All fields must be filled!")
+    if(validateInput(pilot) == "Empty" || validateInput(copilot) == "Empty" || validateInput(fuelLevel) == "Empty" || validateInput(cargoLevel) == "Empty"){
+        //alert("All fields must be filled!")
         shuttleReady = false;
     }
 
     let pilotName = document.getElementById("pilotStatus");
-    if(validateInput(pilot.value) == "Empty"){
+    if(validateInput(pilot) == "Empty"){
         shuttleReady = false;
         pilotName.innerHTML = `Warning!  Pilot not responding`;
     } else{
-        pilotName.innerHTML = `${pilot.value} is Ready!`;
+        pilotName.innerHTML = `Pilot ${pilot} is ready for launch`;
     }
 
     let copilotName = document.getElementById("copilotStatus");
-    if(validateInput(copilot.value) == "Empty"){
+    if(validateInput(copilot) == "Empty"){
         shuttleReady = false;
         copilotName.innerHTML = `Warning!  Copilot not responding`;
     } else{
-        copilotName.innerHTML = `${copilot.value} is Ready!`;
+        copilotName.innerHTML = `Co-pilot ${copilot} is ready for launch`;
     }
 
     let myFuel = document.getElementById("fuelStatus");
     //needs validateInput to check if it's a number first?
-    if(validateInput(fuelLevel.value) !== "Is a Number"){
-        myFuel.innerHTML = `Warning!  Fuel level is not a valid number!`;
-        shuttleReady = false;
-    } else if(fuelLevel.value < 10000){
-        myFuel.innerHTML = `Warning!  Fuel level insufficient for launch!`;
+    if(fuelLevel < 10000){
+        myFuel.innerHTML = `Fuel level too low for launch`;
         shuttleReady = false;
     } else {
-        myFuel.innerHTML = `Fuel level sufficient for launch`;
+        myFuel.innerHTML = `Fuel level high enough for launch`;
     }
 
     let myCargo = document.getElementById("cargoStatus");
     //needs validateInput to check if it's a number first?
-    if(validateInput(cargoLevel.value) !== "Is a Number"){
-        myCargo.innerHTML = `Warning!  Cargo level is not a valid number!`;
-        shuttleReady = false;
-    } else if(cargoLevel.value > 10000){
-        myCargo.innerHTML = `Warning!  Too much mass for launch!`;
+    if(cargoLevel > 10000){
+        myCargo.innerHTML = `Cargo mass too heavy for launch`;
         shuttleReady = false;
     } else {
-        myCargo.innerHTML = 'Cargo level acceptable for launch'
+        myCargo.innerHTML = 'Cargo mass low enough for launch'
     }
 
     if(shuttleReady){
-        launchStatus.innerHTML = `Shuttle is ready for launch`;
+        launchStatus.innerHTML = `Shuttle is Ready for Launch`;
         launchStatus.style.color = "green";
     } else {
-        launchStatus.innerHTML = `Shuttle is not ready for launch`;
+        launchStatus.innerHTML = `Shuttle Not Ready for Launch`;
         launchStatus.style.color = "red";
         faultyItems.style.visibility = "visible";
     }
